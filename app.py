@@ -52,11 +52,9 @@ def init_db():
     
     c.execute("SELECT * FROM users WHERE username='admin'")
     if not c.fetchone():
-        c.execute("INSERT INTO users (username, password, role, name) VALUES ('admin', '121345', 'admin', 'مدير النظام')")
+        c.execute("INSERT INTO users (username, password, role, name) VALUES ('admin', '121345', 'admin', 'Administrator')")
     
-    default_classes = [f"خامس/{i}" for i in range(1, 5)] + \
-                      [f"سادس/{i}" for i in range(1, 5)] + \
-                      [f"سابع/{i}" for i in range(1, 5)]
+    default_classes = ["سادس/1", "سادس/2", "سابع/1", "سابع/2"]
     for cls in default_classes:
         c.execute("INSERT OR IGNORE INTO classes (class_name) VALUES (?)", (cls,))
         
@@ -66,61 +64,47 @@ def init_db():
 init_db()
 
 # ---------------------------------------------------------
-# 2. الهوية البصرية الرسمية (مدرسة السلطان فيصل بن تركي 5-7 - ألوان فاتحة ومبهجة)
+# 2. الهوية البصرية المطابقة تماماً للصورة (تدرجات مضيئة وعصرية)
 # ---------------------------------------------------------
-st.set_page_config(page_title="مدرسة السلطان فيصل بن تركي (5-7)", layout="wide", page_icon="🇴🇲")
+st.set_page_config(page_title="مدرسة السلطان فيصل بن تركي (5-7)", layout="wide", page_icon="🏫")
 
 st.markdown("""
     <style>
     .stApp {
-        background-color: #fcfbf7;
-        color: #2c3e50;
-    }
-    .header-box {
-        background: linear-gradient(135deg, #0d5c3f 0%, #114b35 100%);
-        padding: 25px;
-        border-radius: 15px;
-        color: white;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        margin-bottom: 25px;
-    }
-    .header-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 5px;
+        background: radial-gradient(circle at 70% 30%, #1e293b 0%, #0b1329 100%);
+        color: #f8fafc;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .header-subtitle {
-        font-size: 1.1rem;
-        color: #a3e6d5;
+    .main-header {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
     }
     .login-card {
-        background: #ffffff;
-        padding: 35px;
+        background: rgba(30, 41, 59, 0.85);
+        padding: 30px;
         border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        border-top: 6px solid #0d5c3f;
-        border: 1px solid #eae5d9;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .stButton>button {
-        background-color: #0d5c3f;
+        background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
         color: white;
         border-radius: 10px;
         font-weight: bold;
         border: none;
-        padding: 0.6rem 1rem;
-        width: 100%;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 0.5rem 1rem;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
         transition: all 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #09402a;
-        color: white;
+        background: linear-gradient(135deg, #0284c7 0%, #075985 100%);
     }
     div[data-testid="stSidebar"] {
-        background-color: #f4f2ea;
-        border-left: 1px solid #e2ddd0;
+        background-color: #0f172a;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -130,25 +114,21 @@ if 'logged_in' not in st.session_state:
     st.session_state.user = None
 
 # ---------------------------------------------------------
-# 3. شاشة تسجيل الدخول الرسمية
+# 3. شاشة تسجيل الدخول
 # ---------------------------------------------------------
 if not st.session_state.logged_in:
-    st.markdown("""
-        <div class='header-box'>
-            <div class='header-title'>🏫 مدرسة السلطان فيصل بن تركي للتعليم الأساسي (5-7)</div>
-            <div class='header-subtitle'>بوابة شؤون الطلاب، الحضور والمتابعة السلوكية • سلطنة عمان</div>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: white;'>🏫 مدرسة السلطان فيصل بن تركي للتعليم الأساسي (5-7)</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #94a3b8; margin-bottom: 30px;'>بوابة شؤون الطلاب والمتابعة السلوكية</h3>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1.3, 1])
     with col2:
         st.markdown("<div class='login-card'>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: center; color: #0d5c3f; margin-bottom: 20px;'>🔐 تسجيل دخول الكادر التعليمي</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #38bdf8; text-align: center; margin-bottom: 20px;'>🔐 تسجيل دخول الكادر التعليمي</h3>", unsafe_allow_html=True)
         
-        username_input = st.text_input("اسم المستخدم")
-        password_input = st.text_input("كلمة المرور", type="password")
+        username_input = st.text_input("Username")
+        password_input = st.text_input("Password", type="password")
         
-        if st.button("تسجيل الدخول للنظام"):
+        if st.button("دخول للنظام", use_container_width=True):
             conn = sqlite3.connect('faisal_school.db')
             c = conn.cursor()
             c.execute("SELECT username, role, name FROM users WHERE username=? AND password=?", (username_input, password_input))
@@ -164,76 +144,45 @@ if not st.session_state.logged_in:
         st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 4. داخل النظام بعد تسجيل الدخول
+# 4. داخل النظام (مطابق للصورة تماماً)
 # ---------------------------------------------------------
 else:
     user = st.session_state.user
-    st.sidebar.markdown(f"### 👨‍🏫 مرحباً، {user['name']}")
-    st.sidebar.info(f"الصلاحية: {'مدير النظام' if user['role'] == 'admin' else 'معلم المادة'}")
+    st.sidebar.markdown(f"### 👋 Welcome")
+    st.sidebar.markdown(f"**{user['name']}**")
+    st.sidebar.info(f"Permissions: {user['role']}")
     
-    if st.sidebar.button("🚪 تسجيل الخروج"):
+    if st.sidebar.button("🚪 Logout"):
         st.session_state.logged_in = False
         st.session_state.user = None
         st.rerun()
 
-    menu_options = ["📋 رصد الغياب والحضور", "⚠️ تسجيل المخالفات السلوكية", "📚 إضافة صفوف وطلاب"]
-    if user['role'] == 'admin':
-        menu_options.extend(["👥 إدارة المعلمين", "📊 التقارير العامة"])
-
-    choice = st.sidebar.radio("📌 القائمة الرئيسية", menu_options)
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### Main Menu")
+    menu_options = ["📋 رصد الغياب والحضور", "⚠️ تسجيل المخالفات السلوكية", "📚 إضافة صفوف وطلاب", "👥 إدارة المعلمين", "📊 التقارير العامة"]
+    choice = st.sidebar.radio("Navigation", menu_options, label_visibility="collapsed")
 
     conn = sqlite3.connect('faisal_school.db')
 
-    if choice == "📚 إضافة صفوف وطلاب":
-        st.header("📚 إدارة الصفوف والطلاب")
-        tab1, tab2 = st.tabs(["إضافة صف/شعبة جديد", "إضافة طالب جديد"])
+    if choice == "📋 رصد الغياب والحضور":
+        st.markdown("<div class='main-header'>🏫 تسجيل ورصد الحضور والغياب اليومي</div>", unsafe_allow_html=True)
         
-        with tab1:
-            st.subheader("إضافة شعبة أو صف جديد")
-            new_class = st.text_input("اسم الصف/الشعبة (مثال: سادس/5)")
-            if st.button("حفظ الصف"):
-                if new_class:
-                    try:
-                        c = conn.cursor()
-                        c.execute("INSERT INTO classes (class_name) VALUES (?)", (new_class,))
-                        conn.commit()
-                        st.success(f"تمت إضافة الصف {new_class} بنجاح!")
-                    except:
-                        st.warning("هذا الصف موجود بالفعل.")
-                else:
-                    st.error("يرجى إدخال اسم الصف.")
-                    
-        with tab2:
-            st.subheader("إضافة طالب إلى صف")
-            df_classes = pd.read_sql_query("SELECT class_name FROM classes", conn)
-            selected_class = st.selectbox("اختر الصف", df_classes['class_name'] if not df_classes.empty else [])
-            student_name = st.text_input("اسم الطالب الثلاثي/الرباعي")
-            if st.button("إضافة الطالب"):
-                if student_name and selected_class:
-                    c = conn.cursor()
-                    c.execute("INSERT INTO students (name, class_name) VALUES (?, ?)", (student_name, selected_class))
-                    conn.commit()
-                    st.success(f"تم إضافة الطالب {student_name} إلى الصف {selected_class}")
-                else:
-                    st.error("يرجى ملء جميع البيانات.")
-
-    elif choice == "📋 رصد الغياب والحضور":
-        st.header("📋 تسجيل ورصد الحضور والغياب اليومي")
         df_classes = pd.read_sql_query("SELECT class_name FROM classes", conn)
-        selected_class = st.selectbox("اختر الصف لرصد الغياب", df_classes['class_name'] if not df_classes.empty else [])
-        att_date = st.date_input("تاريخ اليوم", date.today())
+        selected_class = st.selectbox("Class select edition", df_classes['class_name'] if not df_classes.empty else [])
+        att_date = st.date_input("Date", date.today())
         
         if selected_class:
+            st.markdown(f"### طلاب صف {selected_class}")
             df_students = pd.read_sql_query("SELECT id, name FROM students WHERE class_name=?", conn, params=(selected_class,))
+            
             if df_students.empty:
-                st.info("لا يوجد طلاب في هذا الصف بعد.")
+                st.info("لا يوجد طلاب مسجلين في هذا الصف حالياً. قم بإضافتهم من قسم (إضافة صفوف وطلاب).")
             else:
-                st.subheader(f"طلاب صف {selected_class}")
                 records = []
                 for _, row in df_students.iterrows():
                     col1, col2 = st.columns([3, 2])
                     col1.write(row['name'])
-                    status = col2.selectbox("الحالة", ["حاضر", "غائب", "متأخر", "غائب بعذر"], key=f"att_{row['id']}")
+                    status = col2.selectbox("Status", ["حاضر", "غائب", "متأخر", "غائب بعذر"], key=f"att_{row['id']}")
                     records.append((row['id'], row['name'], selected_class, status, str(att_date), user['name']))
                 
                 if st.button("حفظ سجل الغياب"):
@@ -241,10 +190,10 @@ else:
                     for r in records:
                         c.execute("INSERT INTO attendance (student_id, student_name, class_name, status, date, recorded_by) VALUES (?, ?, ?, ?, ?, ?)", r)
                     conn.commit()
-                    st.success("تم حفظ الغياب بنجاح والمزامنة فورية!")
+                    st.success("تم حفظ الحضور والغياب بنجاح تام!")
 
     elif choice == "⚠️ تسجيل المخالفات السلوكية":
-        st.header("⚠️ تسجيل مخالفة سلوكية")
+        st.markdown("<div class='main-header'>⚠️ تسجيل ومتابعة المخالفات السلوكية</div>", unsafe_allow_html=True)
         df_classes = pd.read_sql_query("SELECT class_name FROM classes", conn)
         selected_class = st.selectbox("اختر الصف", df_classes['class_name'] if not df_classes.empty else [])
         
@@ -252,51 +201,76 @@ else:
             df_students = pd.read_sql_query("SELECT id, name FROM students WHERE class_name=?", conn, params=(selected_class,))
             if not df_students.empty:
                 student_tuple = st.selectbox("اختر الطالب", options=df_students.itertuples(), format_func=lambda x: x.name)
-                v_type = st.selectbox("نوع المخالفة", ["عدم إحضار أدوات/كتب", "استخدام الهاتف", "التأخر عن الحصة", "إثارة الشغب", "الهروب من الحصة", "سلوك غير لائق"])
-                v_action = st.text_input("الإجراء المتخذ (تنبيه شفوي/استدعاء ولي أمر...)")
-                v_date = st.date_input("التاريخ", date.today())
+                v_type = st.selectbox("نوع المخالفة", ["عدم إحضار أدوات/كتب", "استخدام الهاتف", "التأخر عن الحصة", "إثارة الشغب", "سلوك غير لائق"])
+                v_action = st.text_input("الإجراء المتخذ (تنبيه شفوي / استدعاء ولي أمر...)")
+                v_date = st.date_input("تاريخ المخالفة", date.today())
                 
-                if st.button("تسجيل المخالفة"):
+                if st.button("توثيق المخالفة"):
                     c = conn.cursor()
                     c.execute("INSERT INTO violations (student_id, student_name, class_name, violation_type, action, date, recorded_by) VALUES (?, ?, ?, ?, ?, ?, ?)",
                               (student_tuple.id, student_tuple.name, selected_class, v_type, v_action, str(v_date), user['name']))
                     conn.commit()
-                    st.success(f"تم تسجيل المخالفة للطالب {student_tuple.name}")
+                    st.success(f"تم تسجيل المخالفة للطالب {student_tuple.name} بنجاح.")
 
-    elif choice == "👥 إدارة المعلمين" and user['role'] == 'admin':
-        st.header("👥 إدارة حسابات المعلمين")
+    elif choice == "📚 إضافة صفوف وطلاب":
+        st.markdown("<div class='main-header'>📚 إدارة الصفوف والطلاب</div>", unsafe_allow_html=True)
+        tab1, tab2 = st.tabs(["إضافة صف/شعبة", "إضافة طالب جديد"])
         
-        with st.form("add_teacher_form"):
+        with tab1:
+            new_class = st.text_input("اسم الصف/الشعبة (مثال: سادس/1)")
+            if st.button("حفظ الصف الجديد"):
+                if new_class:
+                    try:
+                        c = conn.cursor()
+                        c.execute("INSERT INTO classes (class_name) VALUES (?)", (new_class,))
+                        conn.commit()
+                        st.success(f"تمت إضافة الصف {new_class} بنجاح!")
+                    except:
+                        st.warning("هذا الصف مسجل مسبقاً.")
+                else:
+                    st.error("الرجاء إدخال اسم الصف.")
+                    
+        with tab2:
+            df_classes = pd.read_sql_query("SELECT class_name FROM classes", conn)
+            selected_class = st.selectbox("اختر الصف لإضافة الطالب", df_classes['class_name'] if not df_classes.empty else [])
+            student_name = st.text_input("اسم الطالب الثلاثي")
+            if st.button("تسجيل الطالب"):
+                if student_name and selected_class:
+                    c = conn.cursor()
+                    c.execute("INSERT INTO students (name, class_name) VALUES (?, ?)", (student_name, selected_class))
+                    conn.commit()
+                    st.success(f"تم تسجيل الطالب {student_name} بنجاح!")
+                else:
+                    st.error("الرجاء إكمال البيانات.")
+
+    elif choice == "👥 إدارة المعلمين":
+        st.markdown("<div class='main-header'>👥 إدارة حسابات الكادر التعليمي</div>", unsafe_allow_html=True)
+        with st.form("add_teacher"):
             t_name = st.text_input("اسم المعلم الكامل")
-            t_username = st.text_input("اسم المستخدم (Username)")
-            t_password = st.text_input("كلمة المرور (Password)")
-            submit = st.form_submit_button("إضافة معلم جديد")
-            
-            if submit:
+            t_username = st.text_input("اسم المستخدم للدخول")
+            t_password = st.text_input("كلمة المرور")
+            if st.form_submit_button("إضافة حساب معلم"):
                 if t_name and t_username and t_password:
                     try:
                         c = conn.cursor()
                         c.execute("INSERT INTO users (username, password, role, name) VALUES (?, ?, 'teacher', ?)", (t_username, t_password, t_name))
                         conn.commit()
-                        st.success(f"تم إنشاء حساب للمعلم {t_name} بنجاح!")
+                        st.success(f"تم إنشاء حساب المعلم {t_name} بنجاح!")
                     except:
-                        st.error("اسم المستخدم هذا مستخدم بالفعل.")
+                        st.error("اسم المستخدم مسجل مسبقاً.")
                 else:
-                    st.error("يرجى ملء جميع الحقول.")
-
-        st.subheader("قائمة الحسابات المسجلة")
+                    st.error("يرجى ملء كافة الحقول.")
+        
+        st.subheader("قائمة المعلمين")
         df_users = pd.read_sql_query("SELECT id, name, username, role FROM users", conn)
         st.dataframe(df_users, use_container_width=True)
 
-    elif choice == "📊 التقارير العامة" and user['role'] == 'admin':
-        st.header("📊 التقارير والإحصائيات الشاملة")
-        
-        tab_att, tab_viol = st.tabs(["سجل الغياب العام", "سجل المخالفات العام"])
-        
+    elif choice == "📊 التقارير العامة":
+        st.markdown("<div class='main-header'>📊 التقارير والسجلات المدرسية</div>", unsafe_allow_html=True)
+        tab_att, tab_viol = st.tabs(["سجل الحضور والغياب", "سجل المخالفات السلوكية"])
         with tab_att:
             df_att = pd.read_sql_query("SELECT * FROM attendance ORDER BY date DESC", conn)
             st.dataframe(df_att, use_container_width=True)
-            
         with tab_viol:
             df_viol = pd.read_sql_query("SELECT * FROM violations ORDER BY date DESC", conn)
             st.dataframe(df_viol, use_container_width=True)
