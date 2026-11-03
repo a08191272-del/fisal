@@ -66,7 +66,7 @@ def init_db():
 init_db()
 
 # ---------------------------------------------------------
-# 2. الهوية البصرية الرسمية المتميزة (مدرسة السلطان فيصل بن تركي 5-7)
+# 2. الهوية البصرية الرسمية (مدرسة السلطان فيصل بن تركي 5-7 - ألوان فاتحة ومبهجة)
 # ---------------------------------------------------------
 st.set_page_config(page_title="مدرسة السلطان فيصل بن تركي (5-7)", layout="wide", page_icon="🇴🇲")
 
@@ -77,16 +77,16 @@ st.markdown("""
         color: #2c3e50;
     }
     .header-box {
-        background: linear-gradient(135deg, #1b4d3e 0%, #0f2e24 100%);
+        background: linear-gradient(135deg, #0d5c3f 0%, #114b35 100%);
         padding: 25px;
         border-radius: 15px;
         color: white;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         margin-bottom: 25px;
     }
     .header-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 700;
         margin-bottom: 5px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -97,31 +97,30 @@ st.markdown("""
     }
     .login-card {
         background: #ffffff;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-        border-top: 5px solid #1b4d3e;
-        border-right: 1px solid #eaeaea;
-        border-left: 1px solid #eaeaea;
-        border-bottom: 1px solid #eaeaea;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border-top: 6px solid #0d5c3f;
+        border: 1px solid #eae5d9;
     }
     .stButton>button {
-        background-color: #1b4d3e;
+        background-color: #0d5c3f;
         color: white;
         border-radius: 10px;
         font-weight: bold;
         border: none;
         padding: 0.6rem 1rem;
         width: 100%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #14382d;
+        background-color: #09402a;
         color: white;
     }
     div[data-testid="stSidebar"] {
-        background-color: #f4f8f6;
-        border-left: 1px solid #e2e8f0;
+        background-color: #f4f2ea;
+        border-left: 1px solid #e2ddd0;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -144,7 +143,7 @@ if not st.session_state.logged_in:
     col1, col2, col3 = st.columns([1, 1.3, 1])
     with col2:
         st.markdown("<div class='login-card'>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: center; color: #1b4d3e; margin-bottom: 20px;'>🔐 تسجيل دخول الكادر التعليمي</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: #0d5c3f; margin-bottom: 20px;'>🔐 تسجيل دخول الكادر التعليمي</h3>", unsafe_allow_html=True)
         
         username_input = st.text_input("اسم المستخدم")
         password_input = st.text_input("كلمة المرور", type="password")
